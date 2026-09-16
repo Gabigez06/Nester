@@ -1,10 +1,10 @@
-package com.example.demo;
+package es.uclm.Nester;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class DemoApplicationTests {
+class NesterApplicationTests {
 
 	@Test
 	void contextLoads() {

@@ -1,13 +1,13 @@
-package com.example.demo;
+package es.uclm.Nester;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class DemoApplication {
+public class NesterApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(DemoApplication.class, args);
+		SpringApplication.run(NesterApplication.class, args);
 	}
 
 }

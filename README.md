@@ -1,6 +1,6 @@
-# Nester
+# Plataforma de alquiler de viviendas
 
-Proyecto de Laboratorio para ISO || (curso 2026-27)
+Proyecto desarrollado para el laboratorio de Ingeniería del Software II (curso 2026-27)
 
 ## Equipo
 
@@ -10,5 +10,7 @@ Integrantes:
 -Guillermo Risueño da Silva
 -Adrian Calatayud García
 -Pablo García Puebla
+-Gabriel Moreno Navarro
+
+Portavoz:
 -Gabriel Gutiérrez Gonzalez
--Gabriel Moreno Navarra

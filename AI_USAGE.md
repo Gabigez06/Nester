@@ -4,7 +4,7 @@ Este documento recoge los usos relevantes de inteligencia artificial realizados 
 
 ## Principios
 
--La Ia puede proponer, pero el equipo decide.
+-La IA puede proponer, pero el equipo decide.
 -Todo cambio debe ser comprendido y revisado.
 -Las propuestas deben verificarse mediante las herramientas correspondientes.
 -No se integrará código generado por IA sin revisión humana.

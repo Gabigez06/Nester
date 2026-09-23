@@ -22,3 +22,10 @@ Desarrollar una plataforma para la gestión de alquiler de viviendas siguiendo u
 ## Estado
 
 Sprint 0 . Preparación y planificación
+
+## Normas
+
+- No hacer push directo a Main.
+- Todo cambio relevante tiene trabajo asociado.
+- Todo cambio que afecte a Main llega por Pull Request.
+- Toda Pull Request relevante debe ser revisada por otra persona.

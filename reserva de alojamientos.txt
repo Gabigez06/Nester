@@ -22,3 +22,13 @@ usuario:
 -función de filtros
 -función de cancelación de reserva
 crear lista de deseos(el usuario tiene que estar registrados)
+si no permite reserva inmediata:
+-crear función solicitud de reserva:
+	-implementar funciones de pago 
+función notificar al propietario:
+	-función de confirmar reserva o denegar
+	si es confirmada:
+		-función notificar al inquilino
+	si es denegada:
+		-función devolver el dinero 
+		-función notificar al inquilino

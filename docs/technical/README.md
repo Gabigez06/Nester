@@ -16,7 +16,7 @@ Para iniciar la aplicación:
 
 ```bash
 ./mvnw spring-boot:run
-
+```
 # Gestión de usuarios
 
 ## Estado actual
@@ -54,3 +54,4 @@ la aplicación está arrancada. Para consultar los usuarios:
 
 ```sql
 SELECT * FROM USERS;
+```

@@ -29,6 +29,7 @@ El inicio de sesión y los permisos según el tipo de usuario están pendientes.
 La entidad `User` se guarda en la tabla `users` e incluye nombre, apellidos,
 email, teléfono, contraseña y tipo de usuario. Los tipos posibles son
 `INQUILINO` y `PROPIETARIO`.
+El servicio elimina los espacios exteriores del nombre, los apellidos y el teléfono, y normaliza el email a minúsculas. También valida el formato básico del email y el teléfono. La contraseña debe tener al menos 8 caracteres y se guarda codificada con BCrypt.
 
 El email es único. Al registrar, se eliminan espacios al principio y al final
 y se convierte a minúsculas antes de comprobar si ya existe.
@@ -38,12 +39,13 @@ y se convierte a minúsculas antes de comprobar si ya existe.
 - `GET /registro`: muestra el formulario de registro.
 - `POST /registro`: recibe los datos, comprueba si el email ya existe y guarda
   el usuario.
+  Si el registro se completa, el usuario se guarda y se redirige a /. Si hay un error de validación o el email ya existe, se vuelve a /registro y se muestra el mensaje correspondiente.
 
 ## Capas
 
 - `domain/User.java`: entidad y tipos de usuario.
 - `repository/UserRepository.java`: persistencia y consultas por email.
-- `service/UserService.java`: normalización del email y lógica de registro.
+- `service/UserService.java`: normalización del email y lógica de registro, tambien valida los campos, comprueba duplicados y codigica la constraseña.
 - `web/UserController.java`: rutas web.
 - `templates/registro.html`: formulario.
 
@@ -55,3 +57,4 @@ la aplicación está arrancada. Para consultar los usuarios:
 ```sql
 SELECT * FROM USERS;
 ```
+Para conectarse a la consola, se usa la URL jdbc:h2:mem:rentaldb;DB_CLOSE_ON_EXIT=FALSE, el usuario sa y una contraseña vacía. Al detener la aplicación, los datos en memoria se pierden.

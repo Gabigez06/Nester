@@ -1,12 +1,13 @@
 package es.uclm.Nester.web;
 
-import es.uclm.Nester.domain.User.UserRole;
-import es.uclm.Nester.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import es.uclm.Nester.domain.User.UserRole;
+import es.uclm.Nester.service.UserService;
 
 @Controller
 public class UserController {
@@ -34,7 +35,7 @@ public class UserController {
 
         try {
             userService.register(name, surname, email, phone, password, role);
-            return "redirect:/login?registrado";
+            return "redirect:/";
         } catch (IllegalArgumentException exception) {
             redirectAttributes.addFlashAttribute("error", exception.getMessage());
             return "redirect:/registro";

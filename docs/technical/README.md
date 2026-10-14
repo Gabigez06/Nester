@@ -16,3 +16,41 @@ Para iniciar la aplicación:
 
 ```bash
 ./mvnw spring-boot:run
+
+# Gestión de usuarios
+
+## Estado actual
+
+Está implementado el registro básico de usuarios como inquilino o propietario.
+El inicio de sesión y los permisos según el tipo de usuario están pendientes.
+
+## Modelo
+
+La entidad `User` se guarda en la tabla `users` e incluye nombre, apellidos,
+email, teléfono, contraseña y tipo de usuario. Los tipos posibles son
+`INQUILINO` y `PROPIETARIO`.
+
+El email es único. Al registrar, se eliminan espacios al principio y al final
+y se convierte a minúsculas antes de comprobar si ya existe.
+
+## Flujo de registro
+
+- `GET /registro`: muestra el formulario de registro.
+- `POST /registro`: recibe los datos, comprueba si el email ya existe y guarda
+  el usuario.
+
+## Capas
+
+- `domain/User.java`: entidad y tipos de usuario.
+- `repository/UserRepository.java`: persistencia y consultas por email.
+- `service/UserService.java`: normalización del email y lógica de registro.
+- `web/UserController.java`: rutas web.
+- `templates/registro.html`: formulario.
+
+## Base de datos
+
+Se usa H2 en memoria. La consola está disponible en `/h2-console` mientras
+la aplicación está arrancada. Para consultar los usuarios:
+
+```sql
+SELECT * FROM USERS;

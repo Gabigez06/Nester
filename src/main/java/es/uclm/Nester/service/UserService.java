@@ -91,4 +91,25 @@ public class UserService {
 
         return userRepository.save(user);
     }
+        public User login(String email, String password) {
+        if (email == null || email.isBlank()) {
+            throw new IllegalArgumentException("El email es obligatorio.");
+        }
+        if (password == null || password.isBlank()) {
+            throw new IllegalArgumentException("La contraseña es obligatoria.");
+        }
+
+        String normalizedEmail = email.trim().toLowerCase(Locale.ROOT);
+
+        // Buscamos al usuario por email. Si no existe, lanzamos error genérico por seguridad.
+        User user = userRepository.findByEmail(normalizedEmail)
+                .orElseThrow(() -> new IllegalArgumentException("Email o contraseña incorrectos."));
+
+        // Comprobamos la contraseña usando el PasswordEncoder (BCrypt)
+        if (!passwordEncoder.matches(password, user.getPassword())) {
+            throw new IllegalArgumentException("Email o contraseña incorrectos.");
+        }
+
+        return user;
+    }
 }

@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import jakarta.servlet.http.HttpSession;
+import es.uclm.Nester.domain.User;
 
 import es.uclm.Nester.domain.User.UserRole;
 import es.uclm.Nester.service.UserService;
@@ -45,5 +47,24 @@ public class UserController {
     @GetMapping("/login")
     public String showLoginForm() {
         return "login";
+    }
+        @PostMapping("/login")
+    public String login(
+            @RequestParam String email,
+            @RequestParam String password,
+            HttpSession session,
+            RedirectAttributes redirectAttributes) {
+
+        try {
+            User user = userService.login(email, password);
+            
+            // Guardamos el usuario en la sesión para saber que está logueado
+            session.setAttribute("usuarioLogueado", user);
+            
+            return "redirect:/";
+        } catch (IllegalArgumentException exception) {
+            redirectAttributes.addFlashAttribute("error", exception.getMessage());
+            return "redirect:/login";
+        }
     }
 }

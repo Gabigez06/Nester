@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Inmuebles registrados</title>
+</head>
+<body>
+    <h2>Inmuebles registrados</h2>
+    
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Descripción</th>
+                <th>Ubicación</th>
+                <th>Tipo</th>
+                <th>Propietario</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="inmueble : ${inmuebles}">
+                <td th:text="${inmueble.descripcion}">Alojamiento A</td>
+                <td th:text="${inmueble.ubicacion}">Talavera de la Reina</td>
+                <td th:text="${inmueble.tipo}">Apartamento</td>
+                <td th:text="${inmueble.propietario.nombre}">Propietario de ejemplo</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

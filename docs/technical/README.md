@@ -22,7 +22,9 @@ Para iniciar la aplicación:
 ## Estado actual
 
 Está implementado el registro básico de usuarios como inquilino o propietario.
-El inicio de sesión y los permisos según el tipo de usuario están pendientes.
+Está implementado el inicio de sesión para un usuario ya creado.
+Está implementada la funcionalidad de publicar propiedades solo en el caso de estar registrado como propietario.
+Está implementada la funcionalidad de poder ver la lista de propiedades publicadas por el usuario en caso de ser propietario.
 
 ## Modelo
 
@@ -58,3 +60,25 @@ la aplicación está arrancada. Para consultar los usuarios:
 SELECT * FROM USERS;
 ```
 Para conectarse a la consola, se usa la URL jdbc:h2:mem:rentaldb;DB_CLOSE_ON_EXIT=FALSE, el usuario sa y una contraseña vacía. Al detener la aplicación, los datos en memoria se pierden.
+
+# Gestión de inmuebles
+
+## Estado actual
+
+Los usuarios con rol `PROPIETARIO` pueden publicar inmuebles y consultar el listado.
+
+## Modelo y persistencia
+
+La entidad `Property` contiene los datos del inmueble y una relación con el propietario (`User`). Los complementos se guardan en la tabla `property_complements`.
+
+## Flujo y capas
+
+- `GET /propiedades/nueva`: muestra el formulario a propietarios.
+- `POST /propiedades/nueva`: guarda el inmueble asociado al propietario de la sesión y redirige al listado.
+- `GET /lista`: muestra los inmuebles publicados.
+- `domain/Property.java`: entidad del inmueble.
+- `repository/PropertyRepository.java`: acceso a los datos.
+- `service/PropertyService.java`: publicación y consulta de inmuebles.
+- `web/PropertyController.java`: formulario y publicación.
+- `templates/publicar.html`: formulario de publicación.
+- `templates/lista.html`: listado de inmuebles.

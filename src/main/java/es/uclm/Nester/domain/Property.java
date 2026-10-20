@@ -1,39 +1,38 @@
 package es.uclm.Nester.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.persistence.CollectionTable;
-import jakarta.persistence.ElementCollection;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-
 import java.math.BigDecimal;
 import java.util.LinkedHashSet;
 import java.util.Set;
+
+import jakarta.persistence.CollectionTable;
+import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "properties")
 public class Property {
 
-    public enum PropertyType{
+    public enum PropertyType {
         PISO,
         CASA,
         HABITACION
     }
 
-    public enum Complement{
+    public enum Complement {
         WIFI,
         LAVADORA,
-        AIRE_ACONDICIONADO,
-        //LO QUE SE QUIERA AÑADIR
-    } 
-    
+        AIRE_ACONDICIONADO
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -42,19 +41,16 @@ public class Property {
     private String title;
 
     @Column(nullable = false)
-    private String city;
+    private String country;
 
     @Column(nullable = false)
-    private String country;
+    private String city;
 
     @Column(nullable = false)
     private String postalCode;
 
     @Column(nullable = false)
     private String address;
-
-    @Column(nullable = false, length = 2000)
-    private String description;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -74,12 +70,15 @@ public class Property {
 
     @ElementCollection
     @CollectionTable(
-        name = "property_complements",
-        joinColumns = @JoinColumn(name = "property_id")
+            name = "property_complements",
+            joinColumns = @JoinColumn(name = "property_id")
     )
     @Enumerated(EnumType.STRING)
     @Column(name = "complement")
     private Set<Complement> complements = new LinkedHashSet<>();
+
+    @Column(nullable = false, length = 2000)
+    private String description;
 
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal pricePerNight;
@@ -92,23 +91,23 @@ public class Property {
     }
 
     public Property(
-        String title,
-        String city,
-        String country,
-        String postalCode,
-        String address,
-        PropertyType type,
-        int bedrooms,
-        int beds,
-        int bathrooms,
-        int guestCapacity,
-        Set<Complement> complements,
-        String description,
-        BigDecimal pricePerNight,
-        User owner) {
+            String title,
+            String country,
+            String city,
+            String postalCode,
+            String address,
+            PropertyType type,
+            int bedrooms,
+            int beds,
+            int bathrooms,
+            int guestCapacity,
+            Set<Complement> complements,
+            String description,
+            BigDecimal pricePerNight,
+            User owner) {
         this.title = title;
-        this.city = city;
         this.country = country;
+        this.city = city;
         this.postalCode = postalCode;
         this.address = address;
         this.type = type;
@@ -132,12 +131,12 @@ public class Property {
         return title;
     }
 
-    public String getCity() {
-        return city;
-    }
-
     public String getCountry() {
         return country;
+    }
+
+    public String getCity() {
+        return city;
     }
 
     public String getPostalCode() {
@@ -146,10 +145,6 @@ public class Property {
 
     public String getAddress() {
         return address;
-    }
-
-    public String getDescription() {
-        return description;
     }
 
     public PropertyType getType() {
@@ -174,6 +169,10 @@ public class Property {
 
     public Set<Complement> getComplements() {
         return complements;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public BigDecimal getPricePerNight() {

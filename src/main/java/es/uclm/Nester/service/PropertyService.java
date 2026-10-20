@@ -1,5 +1,7 @@
 package es.uclm.Nester.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import es.uclm.Nester.domain.Property;
@@ -27,5 +29,9 @@ public class PropertyService {
         }
 
         return propertyRepository.save(property);
+    }
+
+    public List<Property> obtenerTodos() {
+        return propertyRepository.findAll();
     }
 }

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Iniciar Sesión - Nester</title>
+</head>
+<body>
+    <h1>Iniciar Sesión</h1>
+
+    <!-- Mensaje de error controlado -->
+    <div th:if="${error}" style="color: red;">
+        <p th:text="${error}"></p>
+    </div>
+
+    <!-- El formulario completo, con th:action y cerrando al final -->
+    <form th:action="@{/login}" method="post">
+        <label>Email: <input type="email" name="email" required></label><br><br>
+        <label>Contraseña: <input type="password" name="password" required></label><br><br>
+        <button type="submit">Entrar</button>
+    </form>
+
+    <p>¿No tienes cuenta? <a href="/registro">Regístrate aquí</a></p>
+    <p><a href="/">Volver al inicio</a></p>
+</body>
+</html>

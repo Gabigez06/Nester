@@ -2,10 +2,98 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Rental Platform</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Nester | Alquiler de viviendas</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            color: #202830;
+        }
+
+        .barra {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background: white;
+            box-shadow: 0 2px 8px #00000014;
+        }
+
+        .barra h1 {
+            margin: 0;
+            color: #176b5b;
+            font-size: 1.5rem;
+        }
+
+        .barra nav {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .boton {
+            display: inline-block;
+            padding: 0.7rem 1rem;
+            border: 1px solid #176b5b;
+            border-radius: 6px;
+            background: #176b5b;
+            color: white;
+            text-decoration: none;
+        }
+
+        .boton:hover {
+            background: #105244;
+        }
+
+        .boton-secundario {
+            background: white;
+            color: #176b5b;
+        }
+
+        .boton-secundario:hover {
+            background: #eef6f4;
+        }
+
+        main {
+            padding: 5rem 2rem;
+            text-align: center;
+        }
+
+        @media (max-width: 480px) {
+            .barra {
+                padding: 1rem;
+            }
+
+            .barra nav {
+                gap: 0.5rem;
+            }
+
+            .boton {
+                padding: 0.6rem 0.7rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>Plataforma de alquiler de viviendas</h1>
-    <p>Aplicación Spring Boot en ejecución.</p>
+    <header class="barra">
+        <h1>Nester</h1>
+        <nav aria-label="Acceso">
+            <a class="boton boton-secundario" th:href="@{/login}">Iniciar sesión</a>
+            <a class="boton" th:href="@{/registro}">Registro</a>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Encuentra tu próximo hogar</h2>
+        <p>Bienvenido a Nester, tu plataforma de alquiler de viviendas.</p>
+    </main>
 </body>
 </html>

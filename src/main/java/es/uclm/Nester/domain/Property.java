@@ -1,79 +1,126 @@
 package es.uclm.Nester.domain;
 
+import java.math.BigDecimal;
+import java.util.LinkedHashSet;
+import java.util.Set;
+
+import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "properties")
 public class Property {
-    
+
+    public enum PropertyType {
+        PISO,
+        CASA,
+        HABITACION
+    }
+
+    public enum Complement {
+        WIFI,
+        LAVADORA,
+        AIRE_ACONDICIONADO
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    private String descripcion;
-    private String ubicacion;
-    private String tipo;
-
-    @ManyToOne
-    private User propietario;
-
-    public Property(String descripcion, String ubicacion, String tipo, User propietario) {
-        this.descripcion = descripcion;
-        this.ubicacion = ubicacion;
-        this.tipo = tipo;
-        this.propietario = propietario;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    public String getUbicacion() {
-        return ubicacion;
-    }
-
-    public void setUbicacion(String ubicacion) {
-        this.ubicacion = ubicacion;
-    }
-
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
-    public User getPropietario() {
-        return propietario;
-    }
-
-    public void setPropietario(User propietario) {
-        this.propietario = propietario;
-    }
 
     @Column(nullable = false)
     private String title;
 
     @Column(nullable = false)
+    private String country;
+
+    @Column(nullable = false)
     private String city;
+
+    @Column(nullable = false)
+    private String postalCode;
+
+    @Column(nullable = false)
+    private String address;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private PropertyType type;
+
+    @Column(nullable = false)
+    private int bedrooms;
+
+    @Column(nullable = false)
+    private int beds;
+
+    @Column(nullable = false)
+    private int bathrooms;
+
+    @Column(nullable = false)
+    private int guestCapacity;
+
+    @ElementCollection
+    @CollectionTable(
+            name = "property_complements",
+            joinColumns = @JoinColumn(name = "property_id")
+    )
+    @Enumerated(EnumType.STRING)
+    @Column(name = "complement")
+    private Set<Complement> complements = new LinkedHashSet<>();
+
+    @Column(nullable = false, length = 2000)
+    private String description;
+
+    @Column(nullable = false, precision = 10, scale = 2)
+    private BigDecimal pricePerNight;
+
+    @ManyToOne
+    @JoinColumn(name = "owner_id", nullable = false)
+    private User owner;
 
     protected Property() {
     }
 
-    public Property(String title, String city) {
+    public Property(
+            String title,
+            String country,
+            String city,
+            String postalCode,
+            String address,
+            PropertyType type,
+            int bedrooms,
+            int beds,
+            int bathrooms,
+            int guestCapacity,
+            Set<Complement> complements,
+            String description,
+            BigDecimal pricePerNight,
+            User owner) {
         this.title = title;
+        this.country = country;
         this.city = city;
+        this.postalCode = postalCode;
+        this.address = address;
+        this.type = type;
+        this.bedrooms = bedrooms;
+        this.beds = beds;
+        this.bathrooms = bathrooms;
+        this.guestCapacity = guestCapacity;
+        this.complements = complements == null
+                ? new LinkedHashSet<>()
+                : new LinkedHashSet<>(complements);
+        this.description = description;
+        this.pricePerNight = pricePerNight;
+        this.owner = owner;
     }
 
     public Long getId() {
@@ -84,7 +131,55 @@ public class Property {
         return title;
     }
 
+    public String getCountry() {
+        return country;
+    }
+
     public String getCity() {
         return city;
+    }
+
+    public String getPostalCode() {
+        return postalCode;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public PropertyType getType() {
+        return type;
+    }
+
+    public int getBedrooms() {
+        return bedrooms;
+    }
+
+    public int getBeds() {
+        return beds;
+    }
+
+    public int getBathrooms() {
+        return bathrooms;
+    }
+
+    public int getGuestCapacity() {
+        return guestCapacity;
+    }
+
+    public Set<Complement> getComplements() {
+        return complements;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public BigDecimal getPricePerNight() {
+        return pricePerNight;
+    }
+
+    public User getOwner() {
+        return owner;
     }
 }

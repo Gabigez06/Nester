@@ -61,6 +61,37 @@ SELECT * FROM USERS;
 ```
 Para conectarse a la consola, se usa la URL jdbc:h2:mem:rentaldb;DB_CLOSE_ON_EXIT=FALSE, el usuario sa y una contraseña vacía. Al detener la aplicación, los datos en memoria se pierden.
 
+# Gestión de inicio de sesión
+
+## Estado actual
+El registro básico de usuarios como inquilino o propietario ya está implementado.
+En esta iteración se ha implementado el **inicio de sesión (Login)**. Los permisos específicos según el tipo de usuario (que un Inquilino vea cosas distintas a un Propietario) siguen estando pendientes.
+
+## Modelo
+Se reutiliza la entidad `User`, que se guarda en la tabla `users` e incluye nombre, apellidos, email, teléfono, contraseña y tipo de usuario. Los tipos posibles son INQUILINO y PROPIETARIO.
+Para el login, se utiliza el `email` (que es único) y la `password` (que está cifrada con BCrypt).
+
+## Flujo de inicio de sesión
+- **GET /login**: muestra el formulario de inicio de sesión.
+- **POST /login**: recibe los datos (email y contraseña), comprueba si el email existe y valida la contraseña.
+  - Si el login es correcto, se guarda el objeto `User` en la sesión (`HttpSession`) bajo la clave `usuarioLogueado` y se redirige a `/`.
+  - Si hay un error (el email no existe o la contraseña no coincide), se vuelve a `/login` y se muestra el mensaje correspondiente de forma controlada.
+
+## Capas
+- `domain/User.java`: entidad y tipos de usuario.
+- `repository/UserRepository.java`: persistencia y consultas por email (método `findByEmail`).
+- `service/UserService.java`: lógica de inicio de sesión. Normaliza el email, busca al usuario, valida la contraseña usando el `PasswordEncoder` (BCrypt) y lanza una excepción controlada si falla.
+- `web/UserController.java`: rutas web (`GET /login` y `POST /login`).
+- `templates/login.html`: formulario de inicio de sesión (con protección CSRF usando `th:action`).
+- `config/SecurityConfig.java`: configuración de seguridad y definición del bean `BCryptPasswordEncoder`.
+
+## Base de datos
+Se usa H2 en memoria. La consola está disponible en `/h2-console` mientras la aplicación está arrancada. Para consultar los usuarios (y verificar que el login busca correctamente):
+
+`SELECT * FROM USERS;`
+
+Para conectarse a la consola, se usa la URL `jdbc:h2:mem:rentaldb;DB_CLOSE_ON_EXIT=FALSE`, el usuario `sa` y una contraseña vacía. Al detener la aplicación, los datos en memoria se pierden.
+
 # Gestión de inmuebles
 
 ## Estado actual

@@ -10,7 +10,7 @@ Este documento recoge los usos relevantes de inteligencia artificial realizados 
 -No se integrará código generado por IA sin revisión humana.
 
 ## Hito 1 - Desarrollo funcional
-## Implementación de Registro de Usuarios (Issue 29)
+## Implementación de Registro de Usuarios (Issue #29)
 - **Tarea delegada:** Implementación del flujo de registro.
 - **Herramienta utilizada:** Codex.
 - **Qué se revisó y adaptó:** Se revisó que todos los datos necesarios de los usuarios se pida, que se encripte la contraseña, que no se pueda dejar datos vacios/espacios en las casillas y que todos los datos sean válidos.

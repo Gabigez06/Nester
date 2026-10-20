@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<body>
+    <header class="barra" th:fragment="cabecera">
+        <h1><a th:href="@{/}" href="/">Nester</a></h1>
+        <nav aria-label="Acceso">
+            <a class="boton boton-secundario" th:href="@{/login}" href="/login">Iniciar sesión</a>
+            <a class="boton" th:href="@{/registro}" href="/registro">Registro</a>
+        </nav>
+    </header>
+</body>
+</html>

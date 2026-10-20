@@ -41,6 +41,9 @@ y se convierte a minúsculas antes de comprobar si ya existe.
   el usuario.
   Si el registro se completa, el usuario se guarda y se redirige a /. Si hay un error de validación o el email ya existe, se vuelve a /registro y se muestra el mensaje correspondiente.
 
+## Flujo de login
+
+
 ## Capas
 
 - `domain/User.java`: entidad y tipos de usuario.
@@ -58,3 +61,6 @@ la aplicación está arrancada. Para consultar los usuarios:
 SELECT * FROM USERS;
 ```
 Para conectarse a la consola, se usa la URL jdbc:h2:mem:rentaldb;DB_CLOSE_ON_EXIT=FALSE, el usuario sa y una contraseña vacía. Al detener la aplicación, los datos en memoria se pierden.
+
+## HTMLS
+

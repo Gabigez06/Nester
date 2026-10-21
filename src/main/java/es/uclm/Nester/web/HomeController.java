@@ -25,8 +25,4 @@ public class HomeController {
         model.addAttribute("inmuebles", propertyService.obtenerTodos());
         return "lista";
     }
-    @GetMapping("/")
-    public String home() {
-        return "home";
-    }
 }

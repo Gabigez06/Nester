@@ -30,3 +30,14 @@ Sprint 1: 13/10 - Defensa Intermedia -> Desarrollar registros y log in
 - Todo cambio relevante tiene trabajo asociado.
 - Todo cambio que afecte a Main llega por Pull Request.
 - Toda Pull Request relevante debe ser revisada por otra persona.
+
+## Sprint 0
+
+- Creamos todos los .md convenientes como AI_USAGE, AGENTS, README; y añadimos los archivos convenientes a .gitignore.
+- Instalamos maven con las dependencias de spring que vamos a usar y la version de java 17 para que sea compatible con el ordenador de todos los integrantes y usamos application.properties para configurar spring y la base de datos h2.
+- Creamos las carpetas necesarias dentro de src y las de docs. En src tendremos el codigo del producto y en docs tendremos documentacion de como creamos el proyecto de src.
+
+## Sprint 1
+
+- Creamos a los "Usuarios" dentro de la base de datos y hacemos una forma de que se puedan registrar y loguear dentro de la web.
+- Creamos una forma de que los Usuarios propietarios puedan subir inmuebles a la base de datos y puedan acceder a una lista donde estan todos sus inmuebles.

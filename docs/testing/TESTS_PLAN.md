@@ -68,6 +68,7 @@
 | CP-01 |  |  | Válido |  |  | Alta / Media / Baja |
 | CP-02 |  |  | Inválido |  |  | Alta / Media / Baja |
 | CP-03 |  |  | Límite |  |  | Alta / Media / Baja |
+| CP-04 | Publicar inmueble | Rechazar un inmueble nulo | Inválido | Llamar a publish(null) | Lanza IllegalArgumentException y no se guarda en el repositorio |
 
 ### Convención
 
@@ -106,6 +107,7 @@
 |---|---|---|---|---|
 | CP-01 |  | Unitaria / Integración / Web |  | Implementada / Pendiente |
 | CP-02 |  | Unitaria / Integración / Web |  | Implementada / Pendiente |
+| CP-03 | PropertyServiceTest.shouldRejectNullProperty | Unitaria | Rechaza null y no interactúa con el repositorio	Implementada
 
 ### Criterios de diseño
 
@@ -151,24 +153,25 @@ Las pruebas implementadas deberían, cuando resulte aplicable:
 
 > Durante S6 el equipo debe introducir de forma controlada al menos un defecto para comprobar si una prueba es capaz de detectarlo.
 
-- **Prueba seleccionada:**  
-- **Comportamiento protegido:**  
-- **Defecto introducido:**  
-- **Resultado esperado:**  
-- **¿La prueba falló?:** Sí / No  
-- **Corrección realizada:**  
-- **Resultado después de corregir:**  
+- **Prueba seleccionada:** `PropertyServiceTest.shouldRejectNullProperty`
+- **Comportamiento protegido:** `publish(null)` lanza `IllegalArgumentException` y no interactúa con el repositorio.
+- **Defecto introducido:** se quitó temporalmente la validación de `null` en `PropertyService.publish()`.
+- **Resultado esperado:** la prueba falla al recibir `NullPointerException` en vez de `IllegalArgumentException`.
+- **¿La prueba falló?:** Sí; detectó el defecto.
+- **Corrección realizada:** se restauró la validación de `null`.
+- **Resultado después de corregir:** `BUILD SUCCESS`; 1 prueba ejecutada, 0 fallos.
 
 ### Evidencia de ejecución
 
 ```powershell
+.\mvnw.cmd "-Dtest=PropertyServiceTest#shouldRejectNullProperty" test
 .\mvnw.cmd test
 .\mvnw.cmd verify
 ```
 
-- **Resultado antes del defecto:**  
-- **Resultado con el defecto:**  
-- **Resultado tras la corrección:**  
+- **Resultado antes del defecto:**  BUILD SUCCESS; 1 prueba ejecutada, 0 fallos.
+- **Resultado con el defecto:**  BUILD FAILURE; 1 fallo. Se esperaba IllegalArgumentException, pero se recibió NullPointerException.
+- **Resultado tras la corrección:**  BUILD SUCCESS; 1 prueba ejecutada, 0 fallos
 
 > La finalidad no es romper el proyecto sin motivo, sino demostrar que la prueba puede detectar el defecto que afirma proteger.
 
@@ -192,9 +195,9 @@ Las pruebas implementadas deberían, cuando resulte aplicable:
 
 ### Última ejecución
 
-- **Fecha:**  
-- **Resultado:**  
-- **Incidencias:**  
+- **Fecha: 10/11/2026**  
+- **Resultado: .\mvnw.cmd clean test — BUILD SUCCESS**  
+- **Incidencias: 2 pruebas ejecutadas; 0 fallos, 0 errores, 0 omitidas. Una de ellas fue shouldRejectNullProperty.**  
 
 ---
 

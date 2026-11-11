@@ -43,9 +43,6 @@ y se convierte a minúsculas antes de comprobar si ya existe.
   el usuario.
   Si el registro se completa, el usuario se guarda y se redirige a /. Si hay un error de validación o el email ya existe, se vuelve a /registro y se muestra el mensaje correspondiente.
 
-## Flujo de login
-
-
 ## Capas
 
 - `domain/User.java`: entidad y tipos de usuario.
@@ -63,33 +60,6 @@ la aplicación está arrancada. Para consultar los usuarios:
 SELECT * FROM USERS;
 ```
 Para conectarse a la consola, se usa la URL jdbc:h2:mem:rentaldb;DB_CLOSE_ON_EXIT=FALSE, el usuario sa y una contraseña vacía. Al detener la aplicación, los datos en memoria se pierden.
-
-## HTMLS
-
-# Lista de inmuebles
-
-## Estado actual
-
-Los usuarios con rol `PROPIETARIO` pueden publicar inmuebles.
-**Está implementada la funcionalidad de poder ver la lista de todos los alojamientos publicados en el sistema mediante una tabla dinámica.**
-
-## Modelo y persistencia
-
-La entidad `Property` contiene los datos del inmueble (descripción, ubicación, tipo) y una relación (`@ManyToOne`) con el propietario (`User`). La entidad incluye constructores explícitos (incluyendo el vacío requerido por Hibernate) y sus respectivos métodos accesores.
-La persistencia de esta entidad está gestionada por `PropertyRepository` extendiendo de `JpaRepository`.
-
-## Flujo y capas
-
-- `GET /lista`: recupera todos los inmuebles de la base de datos y muestra una tabla con sus detalles (descripción, ubicación, tipo y propietario).
-- `GET /propiedades/nueva`: muestra el formulario a propietarios.
-- `POST /propiedades/nueva`: guarda el inmueble asociado al propietario de la sesión y redirige al listado.
-- `domain/Property.java`: entidad del inmueble con atributos y constructores.
-- `repository/PropertyRepository.java`: interfaz para el acceso a los datos de la base de datos.
-- `service/PropertyService.java`: publicación y consulta de inmuebles (método `obtenerTodos()`).
-- `web/HomeController.java`: maneja la ruta raíz (`/`) y la ruta del listado (`/lista`).
-- `web/PropertyController.java`: formulario y publicación.
-- `templates/publicar.html`: formulario de publicación.
-- `templates/lista.html`: listado de inmuebles renderizado con Thymeleaf.
 
 # Gestión de inicio de sesión
 
@@ -143,3 +113,7 @@ La entidad `Property` contiene los datos del inmueble y una relación con el pro
 - `web/PropertyController.java`: formulario y publicación.
 - `templates/publicar.html`: formulario de publicación.
 - `templates/lista.html`: listado de inmuebles.
+
+## Sesion 7
+Hemos añadido JaCoCo al pom.xml
+Hemos añadido en el AGENTS.md la skill para que el asistente de IA entienda que hacer con el JaCoCo

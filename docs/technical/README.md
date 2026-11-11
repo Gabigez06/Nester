@@ -116,4 +116,4 @@ La entidad `Property` contiene los datos del inmueble y una relación con el pro
 
 ## Sesion 7
 Hemos añadido JaCoCo al pom.xml
-Hemos añadido en el AGENTS.md la skill para que el asistente de IA entienda que hacer con el JaCoCo
+Hemos añadido en el AGENTS.md la skill para que el asistente de IA entienda que hacer con el JaCoCo.

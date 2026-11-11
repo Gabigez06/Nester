@@ -32,4 +32,4 @@ Html usa styles.css para los html, y si consideras cambiar el styles.css dilo.
 
 
 ## Restrictions
-- No hagas cambios directamente sin que lo revisemos
+- No hagas cambios directamente sin que lo revisemos.

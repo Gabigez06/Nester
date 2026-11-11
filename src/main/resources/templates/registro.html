@@ -1,15 +1,52 @@
-<form th:action="@{/registro}" method="post">
-    <input name="name" placeholder="Nombre" required>
-    <input name="surname" placeholder="Apellidos" required>
-    <input name="email" type="email" placeholder="Email" required>
-    <input name="phone" placeholder="Teléfono" required>
-    <input name="password" type="password" placeholder="Contraseña" required>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Registro - Nester</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" href="/css/styles.css">
+</head>
+<body class="pagina-formulario">
+    <header th:replace="~{fragments/cabecera :: cabecera}"></header>
 
-    <select name="role" required>
-        <option value="INQUILINO">Inquilino</option>
-        <option value="PROPIETARIO">Propietario</option>
-    </select>
+    <main>
+        <h1>Registro</h1>
 
-    <button type="submit">Registrarse</button>
-</form>
-<p th:if="${error}" th:text="${error}"></p>
+        <p class="error" th:if="${error}" th:text="${error}"></p>
+
+        <form th:action="@{/registro}" method="post">
+            <label>Nombre
+                <input type="text" name="name" required>
+            </label>
+
+            <label>Apellidos
+                <input type="text" name="surname" required>
+            </label>
+
+            <label>Email
+                <input type="email" name="email" required>
+            </label>
+
+            <label>Teléfono
+                <input type="tel" name="phone" required>
+            </label>
+
+            <label>Contraseña
+                <input type="password" name="password" required>
+            </label>
+
+            <label>Tipo de usuario
+                <select name="role" required>
+                    <option value="INQUILINO">Inquilino</option>
+                    <option value="PROPIETARIO">Propietario</option>
+                </select>
+            </label>
+
+            <button type="submit">Registrarse</button>
+        </form>
+
+        <p>¿Ya tienes cuenta? <a class="back-link" th:href="@{/login}" href="/login">Inicia sesión</a></p>
+        <p><a class="back-link" th:href="@{/}" href="/">Volver al inicio</a></p>
+    </main>
+</body>
+</html>

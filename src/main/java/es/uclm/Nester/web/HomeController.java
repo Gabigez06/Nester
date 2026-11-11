@@ -13,14 +13,16 @@ public class HomeController {
     @Autowired
     private PropertyService propertyService;
 
-    @GetMapping("/lista")
-    public String listarInmuebles(Model model) {
-        // Añade la lista al modelo para que Thymeleaf la lea
-        model.addAttribute("inmuebles", propertyService.obtenerTodos());
-        return "lista"; // Retorna la vista lista.html
-    }
+    // Esta era la ruta antigua que borraste (pantalla de inicio)
     @GetMapping("/")
     public String home() {
         return "home";
+    }
+
+    // Esta es tu nueva ruta para la lista de inmuebles
+    @GetMapping("/lista")
+    public String listarInmuebles(Model model) {
+        model.addAttribute("inmuebles", propertyService.obtenerTodos());
+        return "lista";
     }
 }

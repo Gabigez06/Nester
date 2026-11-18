@@ -12,6 +12,97 @@
     <main>
         <h2>Encuentra tu próximo hogar</h2>
         <p>Bienvenido a Nester, tu plataforma de alquiler de viviendas.</p>
+
+        <section class="inmuebles">
+            <h2>Inmuebles disponibles</h2>
+
+            <p th:if="${#lists.isEmpty(inmuebles)}">
+                Todavía no hay inmuebles publicados.
+            </p>
+
+            <details class="tarjeta-inmueble"
+                     th:each="inmueble : ${inmuebles}">
+                <summary>
+                    <div class="resumen-cabecera">
+                        <div>
+                            <h3 th:text="${inmueble.title}">Título del inmueble</h3>
+                            <p class="ubicacion"
+                               th:text="|${inmueble.city}, ${inmueble.country}|">
+                                Ciudad, país
+                            </p>
+                        </div>
+
+                        <p class="precio">
+                            <strong th:text="|${inmueble.pricePerNight} €|">80 €</strong>
+                            <span>por noche</span>
+                        </p>
+                    </div>
+
+                    <div class="resumen-datos">
+                        <span th:text="|Hasta ${inmueble.guestCapacity} huéspedes|">
+                            Hasta 4 huéspedes
+                        </span>
+                        <span th:text="${inmueble.type}">PISO</span>
+                    </div>
+                </summary>
+
+                <div class="detalles-inmueble">
+                    <p>
+                        <strong>Descripción:</strong>
+                        <span th:text="${inmueble.description}">Descripción</span>
+                    </p>
+                    <p>
+                        <strong>Tipo:</strong>
+                        <span th:text="${inmueble.type}">Tipo</span>
+                    </p>
+                    <p>
+                        <strong>País:</strong>
+                        <span th:text="${inmueble.country}">País</span>
+                    </p>
+                    <p>
+                        <strong>Dirección:</strong>
+                        <span th:text="${inmueble.address}">Dirección</span>
+                    </p>
+                    <p>
+                        <strong>Código postal:</strong>
+                        <span th:text="${inmueble.postalCode}">Código postal</span>
+                    </p>
+                    <p>
+                        <strong>Habitaciones:</strong>
+                        <span th:text="${inmueble.bedrooms}">0</span>
+                    </p>
+                    <p>
+                        <strong>Camas:</strong>
+                        <span th:text="${inmueble.beds}">0</span>
+                    </p>
+                    <p>
+                        <strong>Baños:</strong>
+                        <span th:text="${inmueble.bathrooms}">0</span>
+                    </p>
+                    <p>
+                        <strong>Capacidad de huéspedes:</strong>
+                        <span th:text="${inmueble.guestCapacity}">0</span>
+                    </p>
+                    <p>
+                        <strong>Complementos:</strong>
+                        <span th:if="${#sets.isEmpty(inmueble.complements)}">
+                            Ninguno
+                        </span>
+                        <span th:unless="${#sets.isEmpty(inmueble.complements)}"
+                              th:text="${#strings.setJoin(inmueble.complements, ', ')}">
+                        </span>
+                    </p>
+                    <p>
+                        <strong>Propietario:</strong>
+                        <span th:text="${inmueble.owner.name}">Nombre</span>
+                    </p>
+
+                    <button class="boton boton-reservar" type="button" disabled>
+                        Reservar
+                    </button>
+                </div>
+            </details>
+        </section>
     </main>
 </body>
 </html>

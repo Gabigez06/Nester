@@ -20,7 +20,8 @@ public class HomeController {
         return "lista";
     }
     @GetMapping("/")
-    public String home() {
+    public String home(Model model) {
+        model.addAttribute("inmuebles", propertyService.obtenerTodos());
         return "home";
     }
 }

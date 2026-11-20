@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Nester | Alquiler de viviendas</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}" href="/css/styles.css">
+    <script th:src="@{/js/calendario-alquiler.js}" defer></script>
 </head>
 <body class="pagina-home">
     <header th:replace="~{fragments/cabecera :: cabecera}"></header>
@@ -12,6 +13,22 @@
     <main>
         <h2>Encuentra tu próximo hogar</h2>
         <p>Bienvenido a Nester, tu plataforma de alquiler de viviendas.</p>
+
+        <div th:if="${esPropietario}">
+            <a class="boton" th:href="@{/propiedades/nueva}">
+                Publicar una propiedad
+            </a>
+        </div>
+
+        <div class="mensaje-exito"
+             th:if="${success}"
+             th:text="${success}">
+        </div>
+
+        <div class="error"
+             th:if="${error}"
+             th:text="${error}">
+        </div>
 
         <section class="inmuebles">
             <h2>Inmuebles disponibles</h2>
@@ -25,7 +42,10 @@
                 <summary>
                     <div class="resumen-cabecera">
                         <div>
-                            <h3 th:text="${inmueble.title}">Título del inmueble</h3>
+                            <h3 th:text="${inmueble.title}">
+                                Título del inmueble
+                            </h3>
+
                             <p class="ubicacion"
                                th:text="|${inmueble.city}, ${inmueble.country}|">
                                 Ciudad, país
@@ -33,7 +53,9 @@
                         </div>
 
                         <p class="precio">
-                            <strong th:text="|${inmueble.pricePerNight} €|">80 €</strong>
+                            <strong th:text="|${inmueble.pricePerNight} €|">
+                                80 €
+                            </strong>
                             <span>por noche</span>
                         </p>
                     </div>
@@ -49,40 +71,53 @@
                 <div class="detalles-inmueble">
                     <p>
                         <strong>Descripción:</strong>
-                        <span th:text="${inmueble.description}">Descripción</span>
+                        <span th:text="${inmueble.description}">
+                            Descripción
+                        </span>
                     </p>
+
                     <p>
                         <strong>Tipo:</strong>
                         <span th:text="${inmueble.type}">Tipo</span>
                     </p>
+
                     <p>
                         <strong>País:</strong>
                         <span th:text="${inmueble.country}">País</span>
                     </p>
+
                     <p>
                         <strong>Dirección:</strong>
                         <span th:text="${inmueble.address}">Dirección</span>
                     </p>
+
                     <p>
                         <strong>Código postal:</strong>
-                        <span th:text="${inmueble.postalCode}">Código postal</span>
+                        <span th:text="${inmueble.postalCode}">
+                            Código postal
+                        </span>
                     </p>
+
                     <p>
                         <strong>Habitaciones:</strong>
                         <span th:text="${inmueble.bedrooms}">0</span>
                     </p>
+
                     <p>
                         <strong>Camas:</strong>
                         <span th:text="${inmueble.beds}">0</span>
                     </p>
+
                     <p>
                         <strong>Baños:</strong>
                         <span th:text="${inmueble.bathrooms}">0</span>
                     </p>
+
                     <p>
                         <strong>Capacidad de huéspedes:</strong>
                         <span th:text="${inmueble.guestCapacity}">0</span>
                     </p>
+
                     <p>
                         <strong>Complementos:</strong>
                         <span th:if="${#sets.isEmpty(inmueble.complements)}">
@@ -92,14 +127,110 @@
                               th:text="${#strings.setJoin(inmueble.complements, ', ')}">
                         </span>
                     </p>
+
                     <p>
                         <strong>Propietario:</strong>
                         <span th:text="${inmueble.owner.name}">Nombre</span>
                     </p>
 
-                    <button class="boton boton-reservar" type="button" disabled>
-                        Reservar
-                    </button>
+                    <div class="acciones-alquiler">
+                        <button class="boton boton-alquilar"
+                                type="button"
+                                data-alquilar
+                                aria-expanded="false">
+                            Alquilar
+                        </button>
+
+                        <button class="boton boton-reservar"
+                                type="button"
+                                disabled>
+                            Reservar
+                        </button>
+                    </div>
+
+                    <section class="panel-alquiler"
+                             hidden
+                             th:attr="data-property-id=${inmueble.id},
+                                      data-price-per-night=${inmueble.pricePerNight},
+                                      data-guest-capacity=${inmueble.guestCapacity}">
+
+                        <h4>Selecciona las fechas de tu estancia</h4>
+
+                        <div class="calendario">
+                            <div class="calendario-navegacion">
+                                <button type="button"
+                                        data-mes-anterior
+                                        aria-label="Mes anterior">
+                                    ‹
+                                </button>
+
+                                <h5 data-mes-actual></h5>
+
+                                <button type="button"
+                                        data-mes-siguiente
+                                        aria-label="Mes siguiente">
+                                    ›
+                                </button>
+                            </div>
+
+                            <div class="calendario-dias-semana">
+                                <span>L</span>
+                                <span>M</span>
+                                <span>X</span>
+                                <span>J</span>
+                                <span>V</span>
+                                <span>S</span>
+                                <span>D</span>
+                            </div>
+
+                            <div class="calendario-dias"
+                                 data-calendario-dias>
+                            </div>
+                        </div>
+
+                        <p data-mensaje-fechas aria-live="polite">
+                            Elige primero el día de entrada.
+                        </p>
+
+                        <form th:action="@{/alquileres/solicitar}"
+                              method="post"
+                              hidden
+                              data-formulario-alquiler>
+
+                            <input type="hidden"
+                                   name="propertyId"
+                                   th:value="${inmueble.id}">
+
+                            <input type="hidden"
+                                   name="checkIn"
+                                   data-fecha-entrada>
+
+                            <input type="hidden"
+                                   name="checkOut"
+                                   data-fecha-salida>
+
+                            <label>
+                                Número de huéspedes
+                                <input type="number"
+                                       name="guests"
+                                       min="1"
+                                       th:attr="max=${inmueble.guestCapacity}"
+                                       value="1"
+                                       required
+                                       data-numero-huespedes>
+                            </label>
+
+                            <p>
+                                Precio total:
+                                <strong data-precio-total>0 €</strong>
+                            </p>
+
+                            <button class="boton boton-solicitar"
+                                    type="submit">
+                                Solicitar alquiler
+                            </button>
+                        </form>
+                    </section>
                 </div>
             </details>
         </section>

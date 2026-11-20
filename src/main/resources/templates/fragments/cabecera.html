@@ -2,10 +2,47 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="es">
 <body>
     <header class="barra" th:fragment="cabecera">
-        <h1><a th:href="@{/}" href="/">Nester</a></h1>
+        <h1>
+            <a th:href="@{/}" href="/">Nester</a>
+        </h1>
+
         <nav aria-label="Acceso">
-            <a class="boton boton-secundario" th:href="@{/login}" href="/login">Iniciar sesión</a>
-            <a class="boton" th:href="@{/registro}" href="/registro">Registro</a>
+            <a class="boton boton-solicitudes"
+               th:if="${esPropietario}"
+               th:href="@{/propietario/solicitudes}">
+                Solicitudes
+            </a>
+
+            <a class="boton boton-notificaciones"
+               th:if="${hayUsuarioLogueado}"
+               th:href="@{/notificaciones}"
+               aria-label="Notificaciones">
+                <span aria-hidden="true">🔔</span>
+                <span class="contador-notificaciones"
+                      th:if="${notificacionesNoLeidas > 0}"
+                      th:text="${notificacionesNoLeidas}">
+                </span>
+            </a>
+
+            <form th:if="${hayUsuarioLogueado}"
+                  th:action="@{/logout}"
+                  method="post">
+                <button class="boton" type="submit">
+                    Cerrar sesión
+                </button>
+            </form>
+
+            <a class="boton boton-secundario"
+               th:unless="${hayUsuarioLogueado}"
+               th:href="@{/login}">
+                Iniciar sesión
+            </a>
+
+            <a class="boton"
+               th:unless="${hayUsuarioLogueado}"
+               th:href="@{/registro}">
+                Registro
+            </a>
         </nav>
     </header>
 </body>

@@ -33,18 +33,27 @@ public class DemoDataLoader implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        if (propertyRepository.count() > 0) {
-            return;
-        }
-
-        User owner = userRepository.findByEmail("demo@nester.local")
+        User owner = userRepository.findByEmail("propietario@gmail.com")
                 .orElseGet(() -> userRepository.save(new User(
                         "Propietario",
                         "Demo",
-                        "demo@nester.local",
+                        "propietario@gmail.com",
                         "600123456",
-                        passwordEncoder.encode("Demo12345"),
+                        passwordEncoder.encode("propietario"),
                         UserRole.PROPIETARIO)));
+
+        userRepository.findByEmail("usuario@gmail.com")
+                .orElseGet(() -> userRepository.save(new User(
+                        "Usuario",
+                        "Demo",
+                        "usuario@gmail.com",
+                        "600654321",
+                        passwordEncoder.encode("usuario"),
+                        UserRole.INQUILINO)));
+
+        if (propertyRepository.count() > 0) {
+            return;
+        }
 
         Property property = new Property(
                 "Apartamento luminoso en el centro",

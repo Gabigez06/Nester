@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Notificaciones - Nester</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" href="/css/styles.css">
+</head>
+<body>
+    <header th:replace="~{fragments/cabecera :: cabecera}"></header>
+
+    <main class="pagina-notificaciones">
+        <h1>Notificaciones</h1>
+
+        <p class="error"
+           th:if="${error}"
+           th:text="${error}">
+        </p>
+
+        <p th:if="${#lists.isEmpty(notificaciones)}">
+            No tienes notificaciones.
+        </p>
+
+        <article class="tarjeta-notificacion"
+                 th:each="notificacion : ${notificaciones}">
+            <div class="contenido-notificacion">
+                <p th:text="${notificacion.message}">
+                    Mensaje de notificación
+                </p>
+
+                <small th:text="${notificacion.createdAt}">
+                    Fecha de notificación
+                </small>
+
+                <span class="estado-notificacion"
+                      th:if="${notificacion.read}">
+                    Leída
+                </span>
+                <span class="estado-notificacion no-leida"
+                      th:unless="${notificacion.read}">
+                    Sin leer
+                </span>
+            </div>
+
+            <div class="acciones-notificacion">
+                <a class="boton boton-ver-solicitudes"
+                   th:if="${notificacion.type.name() == 'SOLICITUD_RECIBIDA'}"
+                   th:href="@{/propietario/solicitudes}">
+                    Ver solicitudes
+                </a>
+
+                <button class="boton boton-pago"
+                        type="button"
+                        th:if="${notificacion.type.name() == 'SOLICITUD_APROBADA'}">
+                    Proceder al pago
+                </button>
+
+                <form th:if="${!notificacion.read}"
+                      th:action="@{/notificaciones/{notificationId}/leer(notificationId=${notificacion.id})}"
+                      method="post">
+                    <button class="boton boton-marcar-leida" type="submit">
+                        Marcar como leída
+                    </button>
+                </form>
+            </div>
+        </article>
+    </main>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Solicitudes de alquiler - Nester</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" href="/css/styles.css">
+</head>
+<body>
+    <header th:replace="~{fragments/cabecera :: cabecera}"></header>
+
+    <main class="solicitudes-propietario">
+        <h1>Solicitudes de alquiler</h1>
+
+        <p class="mensaje-exito"
+           th:if="${success}"
+           th:text="${success}">
+        </p>
+
+        <p class="error"
+           th:if="${error}"
+           th:text="${error}">
+        </p>
+
+        <p th:if="${#lists.isEmpty(solicitudes)}">
+            No tienes solicitudes pendientes.
+        </p>
+
+        <article class="tarjeta-solicitud"
+                 th:each="solicitud : ${solicitudes}">
+            <h2 th:text="${solicitud.property.title}">
+                Inmueble solicitado
+            </h2>
+
+            <p>
+                <strong>Inquilino:</strong>
+                <span th:text="|${solicitud.tenant.name} ${solicitud.tenant.surname}|">
+                    Nombre del inquilino
+                </span>
+            </p>
+
+            <p>
+                <strong>Email:</strong>
+                <span th:text="${solicitud.tenant.email}">email</span>
+            </p>
+
+            <p>
+                <strong>Teléfono:</strong>
+                <span th:text="${solicitud.tenant.phone}">teléfono</span>
+            </p>
+
+            <p>
+                <strong>Entrada:</strong>
+                <span th:text="${solicitud.checkIn}">fecha</span>
+            </p>
+
+            <p>
+                <strong>Salida:</strong>
+                <span th:text="${solicitud.checkOut}">fecha</span>
+            </p>
+
+            <p>
+                <strong>Huéspedes:</strong>
+                <span th:text="${solicitud.guests}">0</span>
+            </p>
+
+            <p>
+                <strong>Total de la estancia:</strong>
+                <span th:text="|${solicitud.totalPrice} €|">0 €</span>
+            </p>
+
+            <div class="acciones-solicitud">
+                <form th:action="@{/propietario/solicitudes/{requestId}/rechazar(requestId=${solicitud.id})}"
+                      method="post">
+                    <button class="boton-rechazar" type="submit">
+                        Denegar alquiler
+                    </button>
+                </form>
+
+                <form th:action="@{/propietario/solicitudes/{requestId}/aprobar(requestId=${solicitud.id})}"
+                      method="post">
+                    <button class="boton-aprobar" type="submit">
+                        Aprobar alquiler
+                    </button>
+                </form>
+            </div>
+        </article>
+    </main>
+</body>
+</html>

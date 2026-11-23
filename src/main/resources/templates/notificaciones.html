@@ -16,6 +16,10 @@
            th:if="${error}"
            th:text="${error}">
         </p>
+        <p class="mensaje-exito"
+           th:if="${success}"
+           th:text="${success}">
+        </p>
 
         <p th:if="${#lists.isEmpty(notificaciones)}">
             No tienes notificaciones.
@@ -49,11 +53,11 @@
                     Ver solicitudes
                 </a>
 
-                <button class="boton boton-pago"
-                        type="button"
-                        th:if="${notificacion.type.name() == 'SOLICITUD_APROBADA'}">
+                <a class="boton boton-pago"
+                   th:if="${notificacion.type.name() == 'SOLICITUD_APROBADA'}"
+                   th:href="@{/pagos/{requestId}(requestId=${notificacion.rentalRequest.id})}">
                     Proceder al pago
-                </button>
+                </a>
 
                 <form th:if="${!notificacion.read}"
                       th:action="@{/notificaciones/{notificationId}/leer(notificationId=${notificacion.id})}"

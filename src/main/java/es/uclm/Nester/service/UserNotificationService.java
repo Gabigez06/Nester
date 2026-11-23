@@ -45,7 +45,7 @@ public class UserNotificationService {
             type = Type.SOLICITUD_APROBADA;
             message = "El propietario ha aprobado tu solicitud para "
                     + request.getProperty().getTitle()
-                    + ".";
+                    + ". Completa el pago para confirmar la reserva.";
         } else if (request.getStatus() == Status.RECHAZADA) {
             type = Type.SOLICITUD_RECHAZADA;
             message = "El propietario ha rechazado tu solicitud para "

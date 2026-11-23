@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Completar pago - Nester</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" href="/css/styles.css">
+</head>
+<body>
+    <header th:replace="~{fragments/cabecera :: cabecera}"></header>
+
+    <main class="pagina-formulario">
+        <h1>Completar pago</h1>
+
+        <p class="error" th:if="${error}" th:text="${error}"></p>
+
+        <section>
+            <h2 th:text="${solicitud.property.title}">Inmueble</h2>
+            <p>
+                <strong>Estancia:</strong>
+                <span th:text="|${solicitud.checkIn} — ${solicitud.checkOut}|">
+                    Fechas
+                </span>
+            </p>
+            <p>
+                <strong>Total:</strong>
+                <span th:text="|${solicitud.totalPrice} €|">0 €</span>
+            </p>
+        </section>
+
+        <p class="error"
+           th:if="${pago != null and pago.status.name() == 'FALLIDO'}">
+            El último intento de pago no se completó. Puedes volver a intentarlo.
+        </p>
+
+        <p th:if="${pago != null and pago.status.name() == 'COMPLETADO'}">
+            Esta solicitud ya está pagada y la reserva está confirmada.
+        </p>
+
+        <form th:if="${pago == null or pago.status.name() != 'COMPLETADO'}"
+              th:action="@{/pagos/{requestId}(requestId=${solicitud.id})}"
+              method="post">
+            <label for="method">Método de pago</label>
+            <select id="method" name="method" required>
+                <option value="" disabled selected>Selecciona un método</option>
+                <option th:each="metodo : ${metodosPago}"
+                        th:value="${metodo.name()}"
+                        th:text="${metodo.name() == 'TARJETA_CREDITO' ? 'Tarjeta de crédito' : (metodo.name() == 'TARJETA_DEBITO' ? 'Tarjeta de débito' : 'PayPal')}">
+                    Método de pago
+                </option>
+            </select>
+
+            <p>Este pago es una simulación. No introduzcas datos de tarjeta ni credenciales.</p>
+
+            <button class="boton" type="submit">Pagar</button>
+        </form>
+    </main>
+</body>
+</html>

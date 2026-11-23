@@ -43,7 +43,7 @@ Sprint 2: 7/11 a 15/11"
 - Creamos a los "Usuarios" dentro de la base de datos y hacemos una forma de que se puedan registrar y loguear dentro de la web.
 - Creamos una forma de que los Usuarios propietarios puedan subir inmuebles a la base de datos y puedan acceder a una lista donde estan todos sus inmuebles.
 
-## Sprint 1
+## Sprint 2
 
 - Añadimos funcionalidad para que las propiedades registradas por los propietarios sean visibles para todos en el Home de la web.
 - En el home se podrá hacer click en una propiedad para poder ver sus detalles y te dará la opción de reservar.

@@ -23,7 +23,7 @@ Desarrollar una plataforma para la gestión de alquiler de viviendas siguiendo u
 
 Sprint 0 . Preparación y planificación
 Sprint 1: 13/10 - Defensa Intermedia -> Desarrollar registros y log in
-Sprint 2: 7/11 a 15/11"
+Sprint 2: 7/11 a 29/11 - Verificación y desarrollo del proyecto
 
 ## Normas
 

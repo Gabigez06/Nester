@@ -153,7 +153,7 @@ Las pruebas implementadas deberían, cuando resulte aplicable:
 
 > Durante S6 el equipo debe introducir de forma controlada al menos un defecto para comprobar si una prueba es capaz de detectarlo.
 
-- **Prueba seleccionada:** `PropertyServiceTest.shouldRejectNullProperty`
+- **Prueba seleccionada:** `PropertyServiceTest.shouldRejectNullProperty`.
 - **Comportamiento protegido:** `publish(null)` lanza `IllegalArgumentException` y no interactúa con el repositorio.
 - **Defecto introducido:** se quitó temporalmente la validación de `null` en `PropertyService.publish()`.
 - **Resultado esperado:** la prueba falla al recibir `NullPointerException` en vez de `IllegalArgumentException`.
